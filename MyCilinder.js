@@ -49,8 +49,8 @@ class MyCilinder extends CGFobject {
             this.normals.push(cosAng, 0, -sinAng);
 
             //--- Texture Coordinates
-            this.texCoords.push(tex, 0);
             this.texCoords.push(tex, 1);
+            this.texCoords.push(tex, 0);
 
             ang += divAng;
             tex += 1/this.slices;

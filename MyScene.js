@@ -27,6 +27,16 @@ class MyScene extends CGFscene {
         this.axis = new CGFaxis(this);
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.myCilinder = new MyCilinder(this, 6);
+        this.myCubeMap = new MyCubeMap(this);
+
+        //------ Applied Material
+        this.quadMaterial = new CGFappearance(this);
+        this.quadMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.quadMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.quadMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.quadMaterial.setShininess(10.0);
+        this.quadMaterial.loadTexture('images/earth.jpg');
+        this.quadMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -51,6 +61,10 @@ class MyScene extends CGFscene {
         //To be done...
     }
 
+    updateTexCoords() {
+        this.quad.updateTexCoords(this.texCoords);
+    }
+
     display() {
         // ---- BEGIN Background, camera and axis setup
         // Clear image and depth buffer everytime we update the scene
@@ -68,11 +82,13 @@ class MyScene extends CGFscene {
 
         this.setDefaultAppearance();
 
+        this.quadMaterial.apply();
         // ---- BEGIN Primitive drawing section
 
         //This sphere does not have defined texture coordinates
-        this.incompleteSphere.display();
-        //this.myCilinder.display();
+        //this.incompleteSphere.display();
+        this.myCilinder.display();
+        //this.myCubeMap.display();
 
         // ---- END Primitive drawing section
     }
