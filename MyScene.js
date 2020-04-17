@@ -40,6 +40,7 @@ class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
+        this.scaleFactor = 50;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -82,14 +83,20 @@ class MyScene extends CGFscene {
 
         this.setDefaultAppearance();
 
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+
         this.quadMaterial.apply();
         // ---- BEGIN Primitive drawing section
 
         //This sphere does not have defined texture coordinates
         //this.incompleteSphere.display();
-        this.myCilinder.display();
-        //this.myCubeMap.display();
+        //this.myCilinder.display();
 
+        this.pushMatrix();
+        //this.scale(5);
+        this.myCubeMap.display();
+        this.popMatrix();
+    
         // ---- END Primitive drawing section
     }
 }
