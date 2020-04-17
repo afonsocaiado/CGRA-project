@@ -28,6 +28,7 @@ class MyScene extends CGFscene {
         this.incompleteSphere = new MySphere(this, 16, 8);
         this.myCilinder = new MyCilinder(this, 6);
         this.myCubeMap = new MyCubeMap(this);
+        this.myVehicle = new MyVehicle(this, 16, 8);
 
         //------ Applied Material
         this.quadMaterial = new CGFappearance(this);
@@ -40,7 +41,7 @@ class MyScene extends CGFscene {
 
         //Objects connected to MyInterface
         this.displayAxis = true;
-        this.scaleFactor = 50;
+        this.scaleFactor = 1;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -91,11 +92,15 @@ class MyScene extends CGFscene {
         //This sphere does not have defined texture coordinates
         //this.incompleteSphere.display();
         //this.myCilinder.display();
-
+        
         this.pushMatrix();
-        //this.scale(5);
+
+        this.scale(50,50,50);
         this.myCubeMap.display();
+
         this.popMatrix();
+        
+        this.myVehicle.display();
     
         // ---- END Primitive drawing section
     }
