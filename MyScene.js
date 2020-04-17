@@ -62,6 +62,7 @@ class MyScene extends CGFscene {
     update(t)
     {
         this.checkKeys();
+        this.myVehicle.update();
     }
 
     updateTexCoords() {
@@ -76,14 +77,37 @@ class MyScene extends CGFscene {
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW"))
         {
-        text += " W ";
-        keysPressed = true;
+            this.myVehicle.accelerate(0.05);
+            text += " W ";
+            keysPressed = true;
         }
 
         if (this.gui.isKeyPressed("KeyS"))
         {
-        text += " S ";
-        keysPressed=true;
+            this.myVehicle.accelerate(-0.05);
+            text += " S ";
+            keysPressed=true;
+        }
+
+        if (this.gui.isKeyPressed("KeyA"))
+        {
+            this.myVehicle.turn(5);
+            text += " A ";
+            keysPressed = true;
+        }
+
+        if (this.gui.isKeyPressed("KeyD"))
+        {
+            this.myVehicle.turn(-5);
+            text += " D ";
+            keysPressed=true;
+        }
+
+        if (this.gui.isKeyPressed("KeyR"))
+        {
+            this.myVehicle.reset();
+            text += " R ";
+            keysPressed=true;
         }
 
         if (keysPressed)
