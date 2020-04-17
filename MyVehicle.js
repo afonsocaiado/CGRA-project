@@ -7,6 +7,11 @@ class MyVehicle extends CGFobject {
         super(scene);
         this.slices = slices;
         this.stacks = stacks;
+        this.angY = 0;
+        this.speed = 0;
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
         this.initBuffers();
     }
     initBuffers() {
@@ -70,12 +75,41 @@ class MyVehicle extends CGFobject {
         this.initNormalVizBuffers();
     }
 
+    turn(val)
+    {
+        this.angY += val;
+    }
 
-    display(){
+    accelerate(val)
+    {
+        this.speed += val;
+    }
+
+    reset()
+    {
+        this.angY = 0;
+        this.speed = 0;
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+    }
+
+    update()
+    {
+        this.x += this.speed * Math.sin(this.angY*Math.PI/180);
+        this.z += this.speed * Math.cos(this.angY*Math.PI/180);
+    }
+
+
+    display()
+    {
         this.scene.pushMatrix();
 
-        this.scene.translate(0,0,-1)
-        this.scene.rotate(90.0*Math.PI/180.0, 1, 0, 0);
+        this.scene.translate(this.x, this.y, this.z);
+        this.scene.rotate(this.angY*Math.PI/180, 0, 1, 0);
+
+        this.scene.translate(0, 0, -1);
+        this.scene.rotate(90*Math.PI/180, 1, 0, 0);
         super.display();
 
         this.scene.popMatrix();
