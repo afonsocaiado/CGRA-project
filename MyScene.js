@@ -29,6 +29,10 @@ class MyScene extends CGFscene {
         this.myCilinder = new MyCilinder(this, 6);
         this.myCubeMap = new MyCubeMap(this);
         this.myVehicle = new MyVehicle(this, 16, 8);
+        this.myElipse = new MyElipse(this, 16, 8);
+        this.myRudder = new MyRudder(this);
+        this.myGondola = new MyGondola(this);
+        this.myHelice = new MyHelice(this);
 
         //------ Applied Material
         this.quadMaterial = new CGFappearance(this);
@@ -175,6 +179,11 @@ class MyScene extends CGFscene {
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         
         this.myVehicle.display();
+
+        //this.myElipse.display();
+        //this.myRudder.display();
+        this.myGondola.display();
+    
     
         // ---- END Primitive drawing section
     }
