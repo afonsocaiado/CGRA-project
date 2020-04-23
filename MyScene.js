@@ -25,7 +25,7 @@ class MyScene extends CGFscene {
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
-        this.incompleteSphere = new MySphere(this, 16, 8);
+        this.mySphere = new MySphere(this, 16, 8);
         this.myCilinder = new MyCilinder(this, 6);
         this.myCubeMap = new MyCubeMap(this);
         this.myVehicle = new MyVehicle(this, 16, 8);
@@ -39,19 +39,40 @@ class MyScene extends CGFscene {
         this.quadMaterial.loadTexture('images/earth.jpg');
         this.quadMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
+        //------ Textures
+        this.texture1 = new CGFtexture(this, 'images/earth.jpg');
+        //-------
+
         //Objects connected to MyInterface
         this.displayAxis = true;
+        this.displaySphere = false;
+        this.displayCilinder = false;
         this.scaleFactor = 1;
+        this.speedFactor = 1;
+
+        this.selectedTexture = -1;
+
+        this.textures = [this.texture1];
+
+        this.textureIds = { 'Earth': 0}
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
-        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
+        this.lights[0].setAmbient(0.9, 0.9, 0.9, 1.0);
+        this.lights[0].setDiffuse(0.2, 0.4, 0.8, 1.0);
+        this.lights[0].setSpecular(0.2, 0.4, 0.8, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
     }
     initCameras() {
         this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
     }
+
+    //Function that resets selected texture in quadMaterial
+    updateAppliedTexture() {
+        this.quadMaterial.setTexture(this.textures[this.selectedTexture]);
+    }
+
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
@@ -77,14 +98,14 @@ class MyScene extends CGFscene {
         // Check for key codes e.g. in https://keycode.info/
         if (this.gui.isKeyPressed("KeyW"))
         {
-            this.myVehicle.accelerate(0.05);
+            this.myVehicle.accelerate(0.05*this.speedFactor);
             text += " W ";
             keysPressed = true;
         }
 
         if (this.gui.isKeyPressed("KeyS"))
         {
-            this.myVehicle.accelerate(-0.05);
+            this.myVehicle.accelerate(-0.05*this.speedFactor);
             text += " S ";
             keysPressed=true;
         }
@@ -132,14 +153,17 @@ class MyScene extends CGFscene {
 
         this.setDefaultAppearance();
 
-        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-
         this.quadMaterial.apply();
         // ---- BEGIN Primitive drawing section
 
+        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+
         //This sphere does not have defined texture coordinates
-        //this.incompleteSphere.display();
-        //this.myCilinder.display();
+        if (this.displaySphere)
+            this.mySphere.display();
+
+        if (this.displayCilinder)
+            this.myCilinder.display();
         
         this.pushMatrix();
 
@@ -147,6 +171,8 @@ class MyScene extends CGFscene {
         this.myCubeMap.display();
 
         this.popMatrix();
+
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         
         this.myVehicle.display();
     
