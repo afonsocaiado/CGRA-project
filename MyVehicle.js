@@ -12,67 +12,13 @@ class MyVehicle extends CGFobject {
         this.x = 0;
         this.y = 0;
         this.z = 0;
-        this.initBuffers();
-    }
-    initBuffers() {
-        this.vertices = [];
-        this.indices = [];
-        this.normals = [];
-
-        var ang = 0;
-        var alphaAng = 2*Math.PI/this.slices;
-
-        for(var i = 0; i < this.slices; i++){
-            // All vertices have to be declared for a given face
-            // even if they are shared with others, as the normals 
-            // in each face will be different
-
-            var sa=Math.sin(ang);
-            var saa=Math.sin(ang+alphaAng);
-            var ca=Math.cos(ang);
-            var caa=Math.cos(ang+alphaAng);
-
-            this.vertices.push(0,2,0);
-            this.vertices.push(ca, 0, -sa);
-            this.vertices.push(caa, 0, -saa);
-
-            // triangle normal computed by cross product of two edges
-            var normal= [
-                saa-sa,
-                ca*saa-sa*caa,
-                caa-ca
-            ];
-
-            // normalization
-            var nsize=Math.sqrt(
-                normal[0]*normal[0]+
-                normal[1]*normal[1]+
-                normal[2]*normal[2]
-                );
-            normal[0]/=nsize;
-            normal[1]/=nsize;
-            normal[2]/=nsize;
-
-            // push normal once for each vertex of this triangle
-            this.normals.push(...normal);
-            this.normals.push(...normal);
-            this.normals.push(...normal);
-
-            this.indices.push(3*i, (3*i+1) , (3*i+2) );
-
-            ang+=alphaAng;
-        }
-
-        this.primitiveType = this.scene.gl.TRIANGLES;
-        this.initGLBuffers();
-    }
-    
-    updateBuffers(complexity){
-        this.slices = 3 + Math.round(9 * complexity); //complexity varies 0-1, so slices varies 3-12
-
-        // reinitialize buffers
-        this.initBuffers();
-        this.initNormalVizBuffers();
+        
+        this.elipse = new MyElipse(this.scene, 16, 8);
+        this.gondola = new MyGondola(this.scene);
+        this.rudder = new MyRudder(this.scene);
+        this.rudder1 = new MyRudder(this.scene);
+        this.rudder2 = new MyRudder(this.scene);
+        this.rudder3 = new MyRudder(this.scene);
     }
 
     turn(val)
@@ -108,9 +54,46 @@ class MyVehicle extends CGFobject {
         this.scene.translate(this.x, this.y, this.z);
         this.scene.rotate(this.angY*Math.PI/180, 0, 1, 0);
 
-        this.scene.translate(0, 0, -1);
-        this.scene.rotate(90*Math.PI/180, 1, 0, 0);
-        super.display();
+        this.scene.pushMatrix();
+        this.scene.scale(2,2,2);
+        this.elipse.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(0,-2.2,-1.2);
+        this.scene.scale(0.4,0.4,0.4);
+        this.gondola.display();
+        this.scene.popMatrix();
+
+        this.scene.pushMatrix();
+        this.scene.translate(1,0,-4.5);
+        this.scene.scale(1,1,1.5);
+        this.scene.rotate(90*Math.PI/180,0,1,0);
+        this.scene.rotate(90*Math.PI/180,1,0,0);
+        this.rudder.display();
+        this.scene.popMatrix(); 
+
+        this.scene.pushMatrix();
+        this.scene.translate(-1,0,-4.5);
+        this.scene.scale(-1,-1,1.5);
+        this.scene.rotate(90*Math.PI/180,0,1,0);
+        this.scene.rotate(90*Math.PI/180,1,0,0);
+        this.rudder1.display();
+        this.scene.popMatrix(); 
+
+        this.scene.pushMatrix();
+        this.scene.translate(0,1,-4.5);
+        this.scene.scale(1,1,1.5);
+        this.scene.rotate(90*Math.PI/180,0,1,0);
+        this.rudder2.display();
+        this.scene.popMatrix(); 
+
+        this.scene.pushMatrix();
+        this.scene.translate(0,-1,-4.5);
+        this.scene.scale(-1,-1,1.5);
+        this.scene.rotate(90*Math.PI/180,0,1,0);
+        this.rudder3.display();
+        this.scene.popMatrix(); 
 
         this.scene.popMatrix();
     }
