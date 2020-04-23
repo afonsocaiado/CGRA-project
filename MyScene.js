@@ -53,6 +53,7 @@ class MyScene extends CGFscene {
         this.displayCilinder = false;
         this.scaleFactor = 1;
         this.speedFactor = 1;
+        this.ambientLight = 0.3;
 
         this.selectedTexture = -1;
 
@@ -62,9 +63,7 @@ class MyScene extends CGFscene {
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
-        this.lights[0].setAmbient(0.9, 0.9, 0.9, 1.0);
-        this.lights[0].setDiffuse(0.2, 0.4, 0.8, 1.0);
-        this.lights[0].setSpecular(0.2, 0.4, 0.8, 1.0);
+        this.lights[0].setDiffuse(1.0, 1.0, 1.0, 1.0);
         this.lights[0].enable();
         this.lights[0].update();
     }
@@ -142,6 +141,8 @@ class MyScene extends CGFscene {
 
     display() {
         // ---- BEGIN Background, camera and axis setup
+        // Add global ambient light
+        this.setGlobalAmbientLight(this.ambientLight, this.ambientLight, this.ambientLight, 1.0);
         // Clear image and depth buffer everytime we update the scene
         this.gl.viewport(0, 0, this.gl.canvas.width, this.gl.canvas.height);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT | this.gl.DEPTH_BUFFER_BIT);
