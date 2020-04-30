@@ -38,12 +38,14 @@ class MyVehicle extends CGFobject {
         this.x = 0;
         this.y = 0;
         this.z = 0;
+        this.gondola.reset();
     }
 
     update()
     {
         this.x += this.speed * Math.sin(this.angY*Math.PI/180);
         this.z += this.speed * Math.cos(this.angY*Math.PI/180);
+        this.gondola.update(this.speed);
     }
 
 

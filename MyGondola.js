@@ -71,5 +71,18 @@ class MyGondola extends CGFobject {
         this.scene.rotate(90*Math.PI/180,1,0,0);         
         this.helice2.display();        
         this.scene.popMatrix();
-	}
+    }
+    
+
+    reset()
+    {
+        this.helice1.reset();
+        this.helice2.reset();
+    }
+
+    update(val)
+    {
+        this.helice1.update(val);
+        this.helice2.update(val);
+    }
 }
