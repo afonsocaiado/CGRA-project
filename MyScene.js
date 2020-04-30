@@ -35,13 +35,12 @@ class MyScene extends CGFscene {
         this.myHelice = new MyHelice(this);
 
         //------ Applied Material
-        this.quadMaterial = new CGFappearance(this);
-        this.quadMaterial.setAmbient(0.1, 0.1, 0.1, 1);
-        this.quadMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
-        this.quadMaterial.setSpecular(0.1, 0.1, 0.1, 1);
-        this.quadMaterial.setShininess(10.0);
-        this.quadMaterial.loadTexture('images/earth.jpg');
-        this.quadMaterial.setTextureWrap('REPEAT', 'REPEAT');
+        this.defaultMaterial = new CGFappearance(this);
+        this.defaultMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.defaultMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.defaultMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.defaultMaterial.setShininess(10.0);
+        this.defaultMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
         //------ Textures
         this.texture1 = new CGFtexture(this, 'images/earth.jpg');
@@ -68,12 +67,12 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 15, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 15, 50), vec3.fromValues(0, 0, 0));
     }
 
     //Function that resets selected texture in quadMaterial
     updateAppliedTexture() {
-        this.quadMaterial.setTexture(this.textures[this.selectedTexture]);
+        this.defaultMaterial.setTexture(this.textures[this.selectedTexture]);
     }
 
     setDefaultAppearance() {
@@ -151,6 +150,8 @@ class MyScene extends CGFscene {
         this.loadIdentity();
         // Apply transformations corresponding to the camera position relative to the origin
         this.applyViewMatrix();
+
+        this.lights[0].update()
         
         // Draw axis
         if (this.displayAxis)
@@ -158,10 +159,9 @@ class MyScene extends CGFscene {
 
         this.setDefaultAppearance();
 
-        this.quadMaterial.apply();
         // ---- BEGIN Primitive drawing section
 
-        this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
+        //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
 
         //This sphere does not have defined texture coordinates
         if (this.displaySphere)
@@ -177,13 +177,15 @@ class MyScene extends CGFscene {
 
         this.popMatrix();
 
+        this.defaultMaterial.apply();
+
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         
         this.myVehicle.display();
 
         //this.myElipse.display();
         //this.myRudder.display();
-        this.myGondola.display();
+        //this.myGondola.display();
     
     
         // ---- END Primitive drawing section
