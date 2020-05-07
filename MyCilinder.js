@@ -32,8 +32,8 @@ class MyCilinder extends CGFobject {
             var cosAng = Math.cos(ang);
 
             //--- Vertices coordinates
-            this.vertices.push(cosAng, 0, -sinAng);
-            this.vertices.push(cosAng, 1, -sinAng);
+            this.vertices.push(cosAng, -0.5, -sinAng);
+            this.vertices.push(cosAng, 0.5, -sinAng);
 
             //--- Indices
             if (i != 0)

@@ -25,34 +25,27 @@ class MyHelice extends CGFobject {
 
     display()
     {
-        this.scene.pushMatrix();
+
         
-        this.scene.rotate(this.speed*(Math.PI/180)*20, 0, 1, 0);
+        this.scene.pushMatrix();
+        this.scene.rotate(this.speed*(Math.PI/180)*20, 0, 0, 1);
 
         this.scene.pushMatrix();
-        
-        this.scene.scale(0.7,0.7,6);
-        this.scene.rotate(90*Math.PI/180,1,0,0);
-
+        this.scene.scale(0.7,6,0.7);
         this.cilinder.display();
-
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-
+        this.scene.translate(0,-3,0);
         this.scene.scale(0.7,0.7,0.7);
         this.sphere.display();
-
         this.scene.popMatrix();
-
-        this.scene.pushMatrix();
-
-        this.scene.scale(0.7,0.7,0.7);
-        this.scene.translate(0,0,8.5); 
-
-        this.sphere1.display();
         
+        this.scene.pushMatrix();
+        this.scene.translate(0,3,0);
+        this.scene.scale(0.7,0.7,0.7);
+        this.sphere1.display();        
         this.scene.popMatrix();
-        this.scene.popMatrix();
+        this.scene.popMatrix();    
     }
 }

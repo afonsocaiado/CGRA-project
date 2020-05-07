@@ -183,10 +183,8 @@ class MyScene extends CGFscene {
         
         this.myVehicle.display();
 
-        //this.myElipse.display();
-        //this.myRudder.display();
+        //this.myHelice.display();
         //this.myGondola.display();
-    
     
         // ---- END Primitive drawing section
     }
