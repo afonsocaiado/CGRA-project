@@ -9,15 +9,17 @@ class MyRudder extends CGFobject {
 		this.initBuffers();
 		if (coords != undefined)
 			this.updateTexCoords(coords);
+
+		this.ang = 0;
 	}
 	
 	initBuffers() {
 		this.vertices = [
-			-0.5, -0.5, 0,	//0
-			0.5, -0.5, 0,	//1
-			-0.5, 0.5, 0,	//2
-            0.5, 0.5, 0,	//3
-            -1.0, -0.5, 0,  //4
+			0.5, 0, 0,	//0
+			1, 0, 0,	//1
+			0.5, 1, 0,	//2
+            1, 1, 0,	//3
+            0, 0, 0,  	//4
 		];
 
 		//Counter-clockwise reference of vertices
@@ -68,5 +70,32 @@ class MyRudder extends CGFobject {
 	updateTexCoords(coords) {
 		this.texCoords = [...coords];
 		this.updateTexCoordsGLBuffers();
+	}
+
+	reset()
+	{
+		this.ang = 0;
+	}
+
+	update(val)
+	{
+		if(val < 50)
+		{
+			this.ang += val;
+		}
+	}
+
+	display()
+	{
+		this.scene.pushMatrix();
+
+		if(this.ang*(Math.PI/180) < 10)
+		{
+			this.scene.rotate(this.ang*(Math.PI/180), 0, 1, 0);
+		}
+		
+		super.display();
+
+		this.scene.popMatrix();
 	}
 }

@@ -39,6 +39,8 @@ class MyVehicle extends CGFobject {
         this.y = 0;
         this.z = 0;
         this.gondola.reset();
+        this.rudder2.reset();
+        this.rudder3.reset();
     }
 
     update()
@@ -46,6 +48,8 @@ class MyVehicle extends CGFobject {
         this.x += this.speed * Math.sin(this.angY*Math.PI/180);
         this.z += this.speed * Math.cos(this.angY*Math.PI/180);
         this.gondola.update(this.speed);
+        this.rudder2.update(this.angY);
+        this.rudder3.update(this.angY);
     }
 
 
@@ -68,7 +72,7 @@ class MyVehicle extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(1,0,-4.5);
+        this.scene.translate(1,0,-3);
         this.scene.scale(1,1,1.5);
         this.scene.rotate(90*Math.PI/180,0,1,0);
         this.scene.rotate(90*Math.PI/180,1,0,0);
@@ -76,7 +80,7 @@ class MyVehicle extends CGFobject {
         this.scene.popMatrix(); 
 
         this.scene.pushMatrix();
-        this.scene.translate(-1,0,-4.5);
+        this.scene.translate(-1,0,-3);
         this.scene.scale(-1,-1,1.5);
         this.scene.rotate(90*Math.PI/180,0,1,0);
         this.scene.rotate(90*Math.PI/180,1,0,0);
@@ -84,14 +88,14 @@ class MyVehicle extends CGFobject {
         this.scene.popMatrix(); 
 
         this.scene.pushMatrix();
-        this.scene.translate(0,1,-4.5);
+        this.scene.translate(0,1,-3);
         this.scene.scale(1,1,1.5);
         this.scene.rotate(90*Math.PI/180,0,1,0);
         this.rudder2.display();
         this.scene.popMatrix(); 
 
         this.scene.pushMatrix();
-        this.scene.translate(0,-1,-4.5);
+        this.scene.translate(0,-1,-3);
         this.scene.scale(-1,-1,1.5);
         this.scene.rotate(90*Math.PI/180,0,1,0);
         this.rudder3.display();
