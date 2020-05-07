@@ -98,28 +98,28 @@ class MyScene extends CGFscene {
         var keysPressed = false;
 
         // Check for key codes e.g. in https://keycode.info/
-        if (this.gui.isKeyPressed("KeyW"))
+        if (this.gui.isKeyPressed("KeyW") && !this.myVehicle.autopilot)
         {
             this.myVehicle.accelerate(0.05*this.speedFactor);
             text += " W ";
             keysPressed = true;
         }
 
-        if (this.gui.isKeyPressed("KeyS"))
+        if (this.gui.isKeyPressed("KeyS") && !this.myVehicle.autopilot)
         {
             this.myVehicle.accelerate(-0.05*this.speedFactor);
             text += " S ";
             keysPressed=true;
         }
 
-        if (this.gui.isKeyPressed("KeyA"))
+        if (this.gui.isKeyPressed("KeyA") && !this.myVehicle.autopilot)
         {
             this.myVehicle.turn(5);
             text += " A ";
             keysPressed = true;
         }
 
-        if (this.gui.isKeyPressed("KeyD"))
+        if (this.gui.isKeyPressed("KeyD") && !this.myVehicle.autopilot)
         {
             this.myVehicle.turn(-5);
             text += " D ";
@@ -133,8 +133,14 @@ class MyScene extends CGFscene {
             keysPressed=true;
         }
 
+        if (this.gui.isKeyPressed("KeyP") && !this.vehicle.autopilot)
+        {
+            this.myVehicle.autopilotOn();
+            keysPressed=true;
+        }
+
         if (keysPressed)
-            console.log(text);
+            this.myVehicle.update();
     }
         
 
