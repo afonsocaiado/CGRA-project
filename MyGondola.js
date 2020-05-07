@@ -52,14 +52,12 @@ class MyGondola extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix(); 
-        this.scene.translate(0.9,0,-4);
-        this.scene.scale(0.1,0.2,0.1);     
+        this.scene.translate(0.9,0,-4);    
         this.helice1.display();        
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(-0.9,0,-4);
-        this.scene.scale(0.1,0.2,0.1);         
+        this.scene.translate(-0.9,0,-4);        
         this.helice2.display();        
         this.scene.popMatrix();
     }

@@ -30,6 +30,8 @@ class MyHelice extends CGFobject {
         this.scene.pushMatrix();
         this.scene.rotate(this.speed*(Math.PI/180)*20, 0, 0, 1);
 
+        this.scene.scale(0.1, 0.2, 0.1);
+
         this.scene.pushMatrix();
         this.scene.scale(0.7,6,0.7);
         this.cilinder.display();

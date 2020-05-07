@@ -72,17 +72,14 @@ class MyRudder extends CGFobject {
 		this.updateTexCoordsGLBuffers();
 	}
 
+	turn(val)
+	{	
+		this.ang = val * 5;	
+	}
+
 	reset()
 	{
 		this.ang = 0;
-	}
-
-	update(val)
-	{
-		if(val < 50)
-		{
-			this.ang += val;
-		}
 	}
 
 	display()
