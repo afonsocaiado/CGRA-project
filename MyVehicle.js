@@ -62,7 +62,7 @@ class MyVehicle extends CGFobject {
         this.scene.popMatrix();
 
         this.scene.pushMatrix();
-        this.scene.translate(0,-2.2,-1.2);
+        this.scene.translate(0,-2.2,0);
         this.scene.scale(0.4,0.4,0.4);
         this.gondola.display();
         this.scene.popMatrix();
