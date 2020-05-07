@@ -33,6 +33,7 @@ class MyScene extends CGFscene {
         this.myRudder = new MyRudder(this);
         this.myGondola = new MyGondola(this);
         this.myHelice = new MyHelice(this);
+        this.myTerrain = new MyTerrain(this);
 
         //------ Applied Material
         this.defaultMaterial = new CGFappearance(this);
@@ -67,7 +68,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 15, 50), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 50, 50), vec3.fromValues(0, 0, 0));
     }
 
     //Function that resets selected texture in quadMaterial
@@ -97,8 +98,6 @@ class MyScene extends CGFscene {
         var text = "Keys pressed: ";
         var keysPressed = false;
 
-        // Check for key codes e.g. in https://keycode.info/
-        
         if (this.gui.isKeyPressed("KeyW"))
         {
             this.myVehicle.accelerate(0.05*this.speedFactor);
@@ -120,7 +119,7 @@ class MyScene extends CGFscene {
             keysPressed = true;
         }
 
-        if (this.gui.isKeyPressed("KeyD"))
+         if (this.gui.isKeyPressed("KeyD"))
         {
             this.myVehicle.turn(-5);
             text += " D ";
@@ -178,6 +177,13 @@ class MyScene extends CGFscene {
 
         this.scale(100,100,100);
         this.myCubeMap.display();
+
+        this.popMatrix();
+
+        this.pushMatrix();
+
+        this.translate(0,-50,0);
+        this.myTerrain.display();
 
         this.popMatrix();
 
