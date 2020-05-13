@@ -13,6 +13,7 @@ class MyVehicle extends CGFobject {
         this.y = 0;
         this.z = 0;
         this.turning = 0;
+        this.autopilot = false;
         
         this.elipse = new MyElipse(this.scene, 16, 8);
         this.gondola = new MyGondola(this.scene);
@@ -44,12 +45,21 @@ class MyVehicle extends CGFobject {
         this.rudder2.reset();
         this.rudder3.reset();
         this.turning = 0;
+        this.autopilot = false;
     }
 
     update()
     {
-        this.x += this.speed * Math.sin(this.angY*Math.PI/180);
-        this.z += this.speed * Math.cos(this.angY*Math.PI/180);
+        if(this.autopilot == false){
+            this.x += this.speed * Math.sin(this.angY*Math.PI/180);
+            this.z += this.speed * Math.cos(this.angY*Math.PI/180);
+        }
+        else {
+            this.turn(Math.PI/50);
+            this.x +=  Math.PI/10 * Math.sin(this.angle);
+            this.z +=  Math.PI/10 * Math.cos(this.angle);
+            this.turning = -Math.PI/10;
+        }
     
         this.gondola.update(this.speed);
 
