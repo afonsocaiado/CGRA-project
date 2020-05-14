@@ -7,7 +7,7 @@ class MyTerrain extends CGFobject {
         this.shader.setUniformsValues({ uSampler2: 1, uSampler3: 2, height: 8});
         
         this.tex = new CGFtexture(this.scene, "images/terrain.jpg");
-		this.heightMap = new CGFtexture(this.scene, "images/heightmap_1.jpg");
+		this.heightMap = new CGFtexture(this.scene, "images/heightmap.jpg");
 	}
 
     display()
@@ -19,6 +19,7 @@ class MyTerrain extends CGFobject {
         this.scene.rotate(-90*(Math.PI/180), 1, 0, 0);
         this.scene.scale(100, 100, 1);
         this.plane.display();
-		this.scene.popMatrix();
+        this.scene.popMatrix();
+        this.scene.setActiveShader(this.scene.defaultShader);
     }
 }
