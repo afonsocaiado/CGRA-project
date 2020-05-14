@@ -86,7 +86,7 @@ class MyVehicle extends CGFobject {
         this.gondola.update(this.speed);
 
         if(this.turning != 0){
-            this.rudder2.turn(this.turning);
+            this.rudder2.turn(-this.turning);
             this.rudder3.turn(this.turning);
         } else {
             this.rudder2.reset();
