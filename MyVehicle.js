@@ -59,8 +59,8 @@ class MyVehicle extends CGFobject {
     startAutopilot()
     {
         this.autopilot = true;
-        this.xAutopilotCenter = this.x + 5 * Math.cos((this.angY + 90)*Math.PI/180);
-        this.zAutopilotCenter = this.z + 5 * Math.sin((this.angY + 90)*Math.PI/180);
+        this.xAutopilotCenter = this.x + 5 * Math.sin((this.angY + 90)*Math.PI/180);
+        this.zAutopilotCenter = this.z + 5 * Math.cos((this.angY + 90)*Math.PI/180);
     }
 
     update(t)
