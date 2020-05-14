@@ -78,7 +78,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(50, 50, 50), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 35, 30), vec3.fromValues(0, 0, 0));
     }
 
     //Function that resets selected texture in quadMaterial
@@ -199,14 +199,14 @@ class MyScene extends CGFscene {
         
         this.pushMatrix();
 
-        this.scale(100,100,100);
+        this.scale(50,50,50);
         this.myCubeMap.display();
 
         this.popMatrix();
 
         this.pushMatrix();
 
-        this.translate(0,-50,0);
+        this.translate(0,-25,0);
         this.myTerrain.display();
 
         this.popMatrix();
@@ -214,8 +214,14 @@ class MyScene extends CGFscene {
         this.defaultMaterial.apply();
 
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+
+        this.pushMatrix();
         
+        this.translate(0,10,0);
         this.myVehicle.display();
+
+        this.popMatrix();
+
     
     
         // ---- END Primitive drawing section

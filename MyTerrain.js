@@ -17,7 +17,7 @@ class MyTerrain extends CGFobject {
         this.tex.bind(0);
         this.heightMap.bind(2);
         this.scene.rotate(-90*(Math.PI/180), 1, 0, 0);
-        this.scene.scale(100, 100, 1);
+        this.scene.scale(50, 50, 1);
         this.plane.display();
         this.scene.popMatrix();
         this.scene.setActiveShader(this.scene.defaultShader);

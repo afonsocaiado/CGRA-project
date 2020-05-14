@@ -113,6 +113,7 @@ class MyCubeMap extends CGFobject {
         this.quad.display();
 
         this.scene.popMatrix();
+        /*
         this.scene.pushMatrix();
 
         this.scene.rotate(Math.PI, 0, 1, 0);
@@ -124,5 +125,6 @@ class MyCubeMap extends CGFobject {
         this.quad.display();
 
         this.scene.popMatrix();
+        */
 	}
 }
