@@ -79,6 +79,8 @@ class MyVehicle extends CGFobject {
             this.angY = this.pilotAng + (this.autopilotTime*360/5000);
             this.x = this.xAutopilotCenter - 5 * Math.sin((this.angY + 90)*Math.PI/180);
             this.z = this.zAutopilotCenter - 5 * Math.cos((this.angY + 90)*Math.PI/180);
+            this.speed = 1;
+            this.turning = 5;
         }
     
         this.gondola.update(this.speed);
