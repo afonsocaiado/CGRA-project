@@ -95,7 +95,7 @@ class MyScene extends CGFscene {
     update(t)
     {
         this.checkKeys();
-        this.myVehicle.update();
+        this.myVehicle.update(t);
     }
 
     updateTexCoords() {
@@ -117,9 +117,9 @@ class MyScene extends CGFscene {
 
             if (this.gui.isKeyPressed("KeyS"))
             {
-            this.myVehicle.accelerate(-0.05*this.speedFactor);
-            text += " S ";
-            keysPressed=true;
+                this.myVehicle.accelerate(-0.05*this.speedFactor);
+                text += " S ";
+                keysPressed=true;
             }
 
             if (this.gui.isKeyPressed("KeyA"))
@@ -146,20 +146,12 @@ class MyScene extends CGFscene {
 
             if (this.gui.isKeyPressed("KeyP")) {
                 text += " P ";
-                this.vehicle.autoPilot = true;
+                this.myVehicle.startAutopilot();
                 keysPressed = true;
             }
 
-            if(keysPressed){
-                console.log(text);
-            }
         }
         else {
-            if (this.gui.isKeyPressed("KeyP")) {
-                text += " P ";
-                this.vehicle.autoPilot = false;
-                keysPressed = true;
-            }
             
             if (this.gui.isKeyPressed("KeyR"))
             {
@@ -167,6 +159,9 @@ class MyScene extends CGFscene {
                 text += " R ";
                 keysPressed=true;
             }
+        }
+        if(keysPressed){
+            console.log(text);
         }
 
         

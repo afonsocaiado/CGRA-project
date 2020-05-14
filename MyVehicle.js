@@ -14,6 +14,11 @@ class MyVehicle extends CGFobject {
         this.z = 0;
         this.turning = 0;
         this.autopilot = false;
+        this.pilotAng = 0;
+        this.startAutopilotTime = -1;
+        this.autopilotTime = 0;
+        this.xAutopilotCenter = 0;
+        this.zAutopilotCenter = 0;
         
         this.elipse = new MyElipse(this.scene, 16, 8);
         this.gondola = new MyGondola(this.scene);
@@ -46,19 +51,34 @@ class MyVehicle extends CGFobject {
         this.rudder3.reset();
         this.turning = 0;
         this.autopilot = false;
+        this.pilotAng = 0;
+        this.startAutopilotTime = -1;
+        this.autopilotTime = 0;
     }
 
-    update()
+    startAutopilot()
+    {
+        this.autopilot = true;
+        this.xAutopilotCenter = this.x + 5 * Math.cos((this.angY + 90)*Math.PI/180);
+        this.zAutopilotCenter = this.z + 5 * Math.sin((this.angY + 90)*Math.PI/180);
+    }
+
+    update(t)
     {
         if(this.autopilot == false){
             this.x += this.speed * Math.sin(this.angY*Math.PI/180);
             this.z += this.speed * Math.cos(this.angY*Math.PI/180);
         }
         else {
-            this.turn(Math.PI/50);
-            this.x +=  Math.PI/10 * Math.sin(this.angle);
-            this.z +=  Math.PI/10 * Math.cos(this.angle);
-            this.turning = -Math.PI/10;
+            if(this.startAutopilotTime == -1)
+            {
+                this.pilotAng = this.angY;
+                this.startAutopilotTime = t;
+            }
+            this.autopilotTime = t - this.startAutopilotTime;
+            this.angY = this.pilotAng + (this.autopilotTime*360/5000);
+            this.x = this.xAutopilotCenter - 5 * Math.sin((this.angY + 90)*Math.PI/180);
+            this.z = this.zAutopilotCenter - 5 * Math.cos((this.angY + 90)*Math.PI/180);
         }
     
         this.gondola.update(this.speed);
