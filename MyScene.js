@@ -11,6 +11,8 @@ class MyScene extends CGFscene {
         this.initCameras();
         this.initLights();
 
+
+
         //Background color
         this.gl.clearColor(0.0, 0.0, 0.0, 1.0);
 
@@ -22,6 +24,8 @@ class MyScene extends CGFscene {
         this.setUpdatePeriod(50);
         
         this.enableTextures(true);
+
+
 
         //Initialize scene objects
         this.axis = new CGFaxis(this);
@@ -35,6 +39,8 @@ class MyScene extends CGFscene {
         this.myHelice = new MyHelice(this);
         this.myTerrain = new MyTerrain(this);
 
+
+
         //------ Applied Material
         this.defaultMaterial = new CGFappearance(this);
         this.defaultMaterial.setAmbient(0.1, 0.1, 0.1, 1);
@@ -43,9 +49,12 @@ class MyScene extends CGFscene {
         this.defaultMaterial.setShininess(10.0);
         this.defaultMaterial.setTextureWrap('REPEAT', 'REPEAT');
 
+
+
         //------ Textures
         this.texture1 = new CGFtexture(this, 'images/earth.jpg');
-        //-------
+
+
 
         //Objects connected to MyInterface
         this.displayAxis = true;
@@ -86,7 +95,7 @@ class MyScene extends CGFscene {
     update(t)
     {
         this.checkKeys();
-        this.myVehicle.update();
+        this.myVehicle.update(t);
     }
 
     updateTexCoords() {
@@ -97,46 +106,65 @@ class MyScene extends CGFscene {
     {
         var text = "Keys pressed: ";
         var keysPressed = false;
-
-        if (this.gui.isKeyPressed("KeyW"))
+        if(this.myVehicle.autopilot == false)
         {
-            this.myVehicle.accelerate(0.05*this.speedFactor);
-            text += " W ";
-            keysPressed = true;
-        }
+            if (this.gui.isKeyPressed("KeyW"))
+            {
+                this.myVehicle.accelerate(0.05*this.speedFactor);
+                text += " W ";
+                keysPressed = true;
+            }
 
-        if (this.gui.isKeyPressed("KeyS"))
-        {
-           this.myVehicle.accelerate(-0.05*this.speedFactor);
-           text += " S ";
-           keysPressed=true;
-        }
+            if (this.gui.isKeyPressed("KeyS"))
+            {
+                this.myVehicle.accelerate(-0.05*this.speedFactor);
+                text += " S ";
+                keysPressed=true;
+            }
 
-        if (this.gui.isKeyPressed("KeyA"))
-        {
-            this.myVehicle.turn(5);
-            text += " A ";
-            keysPressed = true;
-        }
+            if (this.gui.isKeyPressed("KeyA"))
+            {
+                this.myVehicle.turn(5);
+                text += " A ";
+                keysPressed = true;
+            }
 
-         if (this.gui.isKeyPressed("KeyD"))
-        {
-            this.myVehicle.turn(-5);
-            text += " D ";
-            keysPressed=true;
-        }
+            if (this.gui.isKeyPressed("KeyD"))
+            {
+                this.myVehicle.turn(-5);
+                text += " D ";
+                keysPressed=true;
+            }
 
         
-        if (this.gui.isKeyPressed("KeyR"))
-        {
-            this.myVehicle.reset();
-            text += " R ";
-            keysPressed=true;
-        }
+            if (this.gui.isKeyPressed("KeyR"))
+            {
+                this.myVehicle.reset();
+                text += " R ";
+                keysPressed=true;
+            }
 
+            if (this.gui.isKeyPressed("KeyP")) {
+                text += " P ";
+                this.myVehicle.startAutopilot();
+                keysPressed = true;
+            }
+
+        }
+        else {
+            
+            if (this.gui.isKeyPressed("KeyR"))
+            {
+                this.myVehicle.reset();
+                text += " R ";
+                keysPressed=true;
+            }
+        }
         if(keysPressed){
             console.log(text);
         }
+
+        
         
     }
         
@@ -192,9 +220,6 @@ class MyScene extends CGFscene {
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
         
         this.myVehicle.display();
-
-        //this.myHelice.display();
-        //this.myGondola.display();
     
     
         // ---- END Primitive drawing section
