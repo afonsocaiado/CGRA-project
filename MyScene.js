@@ -38,7 +38,7 @@ class MyScene extends CGFscene {
         this.myGondola = new MyGondola(this);
         this.myHelice = new MyHelice(this);
         this.myTerrain = new MyTerrain(this);
-
+        this.mySupply = new MySupply(this);
 
 
         //------ Applied Material
@@ -78,7 +78,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(30, 35, 30), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 45, 15), vec3.fromValues(0, 0, 0));
     }
 
     //Function that resets selected texture in quadMaterial
@@ -221,8 +221,6 @@ class MyScene extends CGFscene {
         this.myVehicle.display();
 
         this.popMatrix();
-
-    
     
         // ---- END Primitive drawing section
     }
