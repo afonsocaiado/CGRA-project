@@ -1,3 +1,10 @@
+const SupplyStates =
+{
+  INACTIVE: 0,
+  FALLING: 1,
+  LANDED: 2
+};
+    
 /**
  * MySupply
  * @constructor
@@ -8,6 +15,12 @@ class MySupply extends CGFobject {
 		super(scene);
     this.quad = new MyQuad(this.scene);
     this.initMaterials();
+
+    this.x = 0;
+    this.y = 10;
+    this.z = 0;
+
+    this.state=SupplyStates.INACTIVE;
     }
 
     initMaterials()
@@ -21,11 +34,42 @@ class MySupply extends CGFobject {
       this.box.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
     }
 
+    drop(valx, valz)
+    {
+      this.x = valx;
+      this.z = valz;
+
+      this.state=SupplyStates.FALLING;
+    }
+
+    update()
+    {
+      if (this.state == SupplyStates.FALLING)
+      {
+        this.y -= 5;
+
+        if (this.y == -25)
+          this.state = SupplyStates.LANDED;
+      }
+    }
+
     display()
     {
+      if (this.state != SupplyStates.INACTIVE)
+      {
+        this.scene.pushMatrix;
+
+        this.scene.translate(this.x, this.y, this.z);
+
         this.scene.pushMatrix();
-        
-        this.scene.translate(0, 0, -0.5);
+        if (this.state == SupplyStates.FALLING)
+          this.scene.translate(0, 0, -0.5);
+
+        else if (this.state == SupplyStates.LANDED)
+        {
+          this.scene.translate(0, 0, -1);
+          this.scene.rotate(-90*Math.PI/180, 1, 0, 0)
+        }
 
         this.box.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
@@ -34,8 +78,38 @@ class MySupply extends CGFobject {
         this.scene.popMatrix();
         this.scene.pushMatrix();
         
-        this.scene.translate(-0.5, 0, 0);
-        this.scene.rotate(90*Math.PI/180, 0, 1, 0);
+        if (this.state == SupplyStates.FALLING)
+        {
+          this.scene.translate(-0.5, 0, 0);
+          this.scene.rotate(90*Math.PI/180, 0, 1, 0);
+        }
+
+        else if (this.state == SupplyStates.LANDED)
+        {
+          this.scene.translate(-1, 0, 0);
+          this.scene.rotate(90*Math.PI/180, 0, 1, 0);
+          this.scene.rotate(-90*Math.PI/180, 1, 0, 0)
+        }
+
+        this.box.apply();
+        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
+        this.quad.display();
+
+        this.scene.popMatrix();
+        this.scene.pushMatrix();
+        
+        if (this.state == SupplyStates.FALLING)
+        {
+          this.scene.translate(0.5, 0, 0);
+          this.scene.rotate(-90*Math.PI/180, 0, 1, 0);
+        }
+
+        else if (this.state == SupplyStates.LANDED)
+        {
+          this.scene.translate(1, 0, 0);
+          this.scene.rotate(-90*Math.PI/180, 0, 1, 0);
+          this.scene.rotate(-90*Math.PI/180, 1, 0, 0);
+        }
         
         this.box.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
@@ -44,9 +118,19 @@ class MySupply extends CGFobject {
         this.scene.popMatrix();
         this.scene.pushMatrix();
         
-        this.scene.translate(0.5, 0, 0);
-        this.scene.rotate(-90*Math.PI/180, 0, 1, 0);
-        
+        if (this.state == SupplyStates.FALLING)
+        {
+          this.scene.translate(0, 0, 0.5);
+          this.scene.rotate(180*Math.PI/180, 0, 1, 0);
+        }
+
+        else if (this.state == SupplyStates.LANDED)
+        {
+          this.scene.translate(0, 0, 1);
+          this.scene.rotate(180*Math.PI/180, 0, 1, 0);
+          this.scene.rotate(-90*Math.PI/180, 1, 0, 0);
+        }
+
         this.box.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.quad.display();
@@ -54,36 +138,47 @@ class MySupply extends CGFobject {
         this.scene.popMatrix();
         this.scene.pushMatrix();
         
-        this.scene.translate(0, 0, 0.5);
-        this.scene.rotate(180*Math.PI/180, 0, 1, 0);
-        
+        if (this.state == SupplyStates.FALLING)
+        {
+          this.scene.translate(0, -0.5, 0);
+          this.scene.rotate(Math.PI,0,1,0);
+          this.scene.rotate(-90*Math.PI/180, 1, 0, 0);
+        }
+
+        if (this.state == SupplyStates.LANDED)
+        {
+          this.scene.rotate(Math.PI,0,1,0);
+          this.scene.rotate(-90*Math.PI/180, 1, 0, 0);
+        }
+
         this.box.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.quad.display();
 
         this.scene.popMatrix();
         this.scene.pushMatrix();
-        
-        this.scene.translate(0, -0.5, 0);
-        this.scene.rotate(Math.PI,0,1,0);
-        this.scene.rotate(-90*Math.PI/180, 1, 0, 0);
-        
+
+        if (this.state == SupplyStates.FALLING)
+        {
+          this.scene.translate(0, 0.5, 0);
+          this.scene.rotate(Math.PI, 0, 1, 0);
+          this.scene.rotate(90*Math.PI/180, 1, 0, 0);
+        }
+
+        else if (this.state == SupplyStates.LANDED)
+        {
+          this.scene.translate(0, 0, 2);
+          this.scene.rotate(180*Math.PI/180, 0, 1, 0);
+          this.scene.rotate(-90*Math.PI/180, 1, 0, 0);
+        }
+
         this.box.apply();
         this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
         this.quad.display();
 
         this.scene.popMatrix();
-        this.scene.pushMatrix();
-
-        this.scene.rotate(Math.PI, 0, 1, 0);
-        this.scene.translate(0, 0.5, 0);
-        this.scene.rotate(90*Math.PI/180, 1, 0, 0);
-        
-        this.box.apply();
-        this.scene.gl.texParameteri(this.scene.gl.TEXTURE_2D, this.scene.gl.TEXTURE_MAG_FILTER, this.scene.gl.NEAREST);
-        this.quad.display();
 
         this.scene.popMatrix();
-        
+      }   
 	}
 }

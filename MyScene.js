@@ -78,7 +78,7 @@ class MyScene extends CGFscene {
         this.lights[0].update();
     }
     initCameras() {
-        this.camera = new CGFcamera(0.4, 0.1, 500, vec3.fromValues(15, 45, 15), vec3.fromValues(0, 0, 0));
+        this.camera = new CGFcamera(1.0, 0.1, 500, vec3.fromValues(15, 20, 15), vec3.fromValues(0, 5, 0));
     }
 
     //Function that resets selected texture in quadMaterial
@@ -97,6 +97,7 @@ class MyScene extends CGFscene {
     {
         this.checkKeys();
         this.myVehicle.update(t);
+        this.mySupply.update();
     }
 
     updateTexCoords() {
@@ -150,7 +151,12 @@ class MyScene extends CGFscene {
                 this.myVehicle.startAutopilot();
                 keysPressed = true;
             }
-
+            
+            if (this.gui.isKeyPressed("KeyL")) {
+                text += " L ";
+                //this.mySupply.drop(this.myVehicle.x, this.myVehicle.z);
+                keysPressed = true;
+            }
         }
         else {
             
@@ -196,6 +202,8 @@ class MyScene extends CGFscene {
 
         if (this.displayCilinder)
             this.myCilinder.display();
+
+        this.mySupply.display();
         
         this.pushMatrix();
 
