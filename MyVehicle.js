@@ -28,7 +28,8 @@ class MyVehicle extends CGFobject {
         this.rudder2 = new MyRudder(this.scene);
         this.rudder3 = new MyRudder(this.scene);
         this.flag = new MyPlane(this.scene, 20);
-        this.
+        this.thread = new MyHelice(this.scene);
+        this.thread1 = new MyHelice(this.scene);
     }
 
     initBuffers()
@@ -171,6 +172,22 @@ class MyVehicle extends CGFobject {
         this.scene.rotate(90*Math.PI/180,0,1,0);
         this.rudder3.display();
         this.scene.popMatrix(); 
+
+        //FIO BAIXO
+        this.scene.pushMatrix();
+        this.scene.translate(0,-0.6,-4.5);
+        this.scene.scale(0.3,0.3,1);
+        this.scene.rotate(90*Math.PI/180, 1, 0, 0);
+        this.thread.display();
+        this.scene.popMatrix();
+
+        //FIO CIMA
+        this.scene.pushMatrix();
+        this.scene.translate(0,0.6,-4.5);
+        this.scene.scale(0.3,0.3,1);
+        this.scene.rotate(90*Math.PI/180, 1, 0, 0);
+        this.thread1.display();
+        this.scene.popMatrix();
 
         //BANDEIRA
         this.scene.setActiveShader(this.shader);
