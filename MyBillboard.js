@@ -69,7 +69,7 @@ class MyBillboard extends CGFobject {
 
         this.scene.pushMatrix();  
         this.scene.setActiveShader(this.barShader);
-        this.scene.translate(0, 0, 0.05);
+        this.scene.translate(0, -0.5, 0.05);
         this.scene.scale(3, 0.4, 0.4);      
         this.bar.display();
         this.scene.popMatrix(); 
