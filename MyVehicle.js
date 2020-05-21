@@ -36,14 +36,14 @@ class MyVehicle extends CGFobject {
     {
         this.texture=new CGFtexture(this.scene,'images/flag.jpg');
 
-        this.shader=new CGFshader(this.scene.gl, "shaders/flag.vert", "shaders/flag.frag");
-        this.shader.setUniformsValues({ uSampler: 1 });
-        this.shader.setUniformsValues({ vehicleSpeed: 0.05 });
-        this.shader.setUniformsValues({time: 0});
-        this.reverseShader=new CGFshader(this.scene.gl, "shaders/reverseFlag.vert", "shaders/flag.frag");
-        this.reverseShader.setUniformsValues({ uSampler: 1 });
-        this.reverseShader.setUniformsValues({time: 0});
-        this.reverseShader.setUniformsValues({ vehicleSpeed: 0.05 });
+        this.flagShader = new CGFshader(this.scene.gl, "shaders/flag.vert", "shaders/flag.frag");
+        this.flagShader.setUniformsValues({ uSampler: 1 });
+        this.flagShader.setUniformsValues({ vehicleSpeed: 0.05 });
+        this.flagShader.setUniformsValues({time: 0});
+        this.flagShader1 = new CGFshader(this.scene.gl, "shaders/reverseFlag.vert", "shaders/flag.frag");
+        this.flagShader1.setUniformsValues({ uSampler: 1 });
+        this.flagShader1.setUniformsValues({time: 0});
+        this.flagShader1.setUniformsValues({ vehicleSpeed: 0.05 });
     }
 
     turn(val)
@@ -118,11 +118,11 @@ class MyVehicle extends CGFobject {
 
     updateFlag(t)
     {
-        this.shader.setUniformsValues({ vehicleSpeed: this.speed+0.05 });
-        this.shader.setUniformsValues({time: t});
+        this.flagShader.setUniformsValues({ vehicleSpeed: this.speed+0.05 });
+        this.flagShader.setUniformsValues({time: t});
 
-        this.reverseShader.setUniformsValues({ vehicleSpeed: this.speed+0.05 });
-        this.reverseShader.setUniformsValues({time: t});
+        this.flagShader1.setUniformsValues({ vehicleSpeed: this.speed+0.05 });
+        this.flagShader1.setUniformsValues({time: t});
     }
 
 
@@ -202,25 +202,21 @@ class MyVehicle extends CGFobject {
         this.scene.popMatrix();
 
         //BANDEIRA
-        this.scene.setActiveShader(this.shader);
+        this.scene.setActiveShader(this.flagShader);
         this.texture.bind(0);
-
         this.scene.pushMatrix();
         this.scene.translate(0,0,-6.5);
         this.scene.rotate(Math.PI/2,0,1,0);
         this.scene.scale(2.55,1.35,1.5);
         this.flag.display();
         this.scene.popMatrix();
-
-        this.scene.setActiveShader(this.reverseShader);
-
+        this.scene.setActiveShader(this.flagShader1);
         this.scene.pushMatrix();
         this.scene.translate(0,0,-6.5);
         this.scene.rotate(3*Math.PI/2,0,1,0);
         this.scene.scale(2.55,1.35,1.5);
         this.flag.display();
         this.scene.popMatrix();
-
         this.scene.setActiveShader(this.scene.defaultShader);
 
         this.scene.popMatrix();
