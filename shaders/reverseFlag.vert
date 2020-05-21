@@ -25,7 +25,7 @@ void main() {
         offset.z =  0.2 * sin(-aVertexPosition.x + (time * 0.003)) * (aVertexPosition.x - 0.5);
     }
     else
-        offset.z =  0.2 * sin(aVertexPosition.x + (vehicleSpeed * 100.0) * (time * 0.003)) * (aVertexPosition.x - 0.5);
+        offset.z =  0.2 * sin(aVertexPosition.x + (vehicleSpeed * 100.0) * (time * 1.0)) * (aVertexPosition.x - 0.5);
 
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition + offset, 1.0);
 }
