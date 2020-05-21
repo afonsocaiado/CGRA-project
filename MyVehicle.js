@@ -72,6 +72,7 @@ class MyVehicle extends CGFobject {
         this.pilotAng = 0;
         this.startAutopilotTime = -1;
         this.autopilotTime = 0;
+        this.updateFlag(0);
     }
 
     startAutopilot()
@@ -111,6 +112,17 @@ class MyVehicle extends CGFobject {
             this.rudder3.reset();
         }
         this.turning = 0;
+
+        this.updateFlag(t/1000%1000);
+    }
+
+    updateFlag(t)
+    {
+        this.shader.setUniformsValues({ vehicleSpeed: this.speed+0.05 });
+        this.shader.setUniformsValues({time: t});
+
+        this.reverseShader.setUniformsValues({ vehicleSpeed: this.speed+0.05 });
+        this.reverseShader.setUniformsValues({time: t});
     }
 
 
