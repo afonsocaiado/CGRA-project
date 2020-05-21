@@ -38,6 +38,7 @@ class MyScene extends CGFscene {
         this.myGondola = new MyGondola(this);
         this.myHelice = new MyHelice(this);
         this.myTerrain = new MyTerrain(this);
+        this.myBillboard = new MyBillboard(this);
         this.supplies = [
         new MySupply(this),
         new MySupply(this),
@@ -100,6 +101,11 @@ class MyScene extends CGFscene {
     // called periodically (as per setUpdatePeriod() in init())
     update(t)
     {
+        if (this.lastUpdate == 0)
+            this.lastUpdate = t;
+        let elapsedTime = t - this.lastUpdate;
+        this.lastUpdate = t;
+
         this.checkKeys();
 
         this.myVehicle.update(t);
@@ -156,6 +162,7 @@ class MyScene extends CGFscene {
                     this.supplies[i].state = SupplyStates.INACTIVE;
                     this.supplies[i].y = 9;
                 }
+                this.myBillboard.reset();
                 text += " R ";
                 keysPressed=true;
             }
@@ -173,6 +180,7 @@ class MyScene extends CGFscene {
                     this.supplies[this.supplies_dropped].drop(this.myVehicle.x, this.myVehicle.z);
                     this.supplies_dropped++;
                 }
+                this.myBillboard.update();
                 keysPressed = true;
             }
         }
@@ -180,6 +188,7 @@ class MyScene extends CGFscene {
             
             if (this.gui.isKeyPressed("KeyR"))
             {
+                this.myBillboard.reset();
                 this.myVehicle.reset();
                 text += " R ";
                 keysPressed=true;
@@ -248,6 +257,10 @@ class MyScene extends CGFscene {
         this.myVehicle.display();
 
         this.popMatrix();
+
+        this.defaultMaterial.apply();
+
+        this.myBillboard.display();
     
         // ---- END Primitive drawing section
     }

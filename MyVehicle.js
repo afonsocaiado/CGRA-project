@@ -34,7 +34,13 @@ class MyVehicle extends CGFobject {
 
     initBuffers()
     {
-        this.texture=new CGFtexture(this.scene,'images/flag.jpg');
+        this.tex = new CGFappearance(this.scene);
+        this.tex.setAmbient(1.0, 1.0, 1.0, 1);
+        this.tex.setDiffuse(0.0, 0.0, 0.0, 1);
+        this.tex.setSpecular(0.0, 0.0, 0.0, 1);
+        this.tex.setShininess(10.0);
+        this.tex.loadTexture('images/flag.jpg');
+        this.tex.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         this.flagShader = new CGFshader(this.scene.gl, "shaders/flag.vert", "shaders/flag.frag");
         this.flagShader.setUniformsValues({ uSampler: 1 });
@@ -203,7 +209,7 @@ class MyVehicle extends CGFobject {
 
         //BANDEIRA
         this.scene.setActiveShader(this.flagShader);
-        this.texture.bind(0);
+        this.tex.apply();
         this.scene.pushMatrix();
         this.scene.translate(0,0,-6.5);
         this.scene.rotate(Math.PI/2,0,1,0);
