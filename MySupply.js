@@ -17,7 +17,7 @@ class MySupply extends CGFobject {
     this.initMaterials();
 
     this.x = 0;
-    this.y = 10;
+    this.y = 9;
     this.z = 0;
 
     this.state=SupplyStates.INACTIVE;
@@ -42,14 +42,22 @@ class MySupply extends CGFobject {
       this.state=SupplyStates.FALLING;
     }
 
+    land()
+    {
+      this.state = SupplyStates.LANDED;
+      this.y = 0.5;
+    }
+
     update()
     {
       if (this.state == SupplyStates.FALLING)
       {
-        this.y -= 5;
+        this.y -= 0.4;
 
-        if (this.y == -25)
-          this.state = SupplyStates.LANDED;
+        if (this.y <= 0.4)
+        {
+          this.land();
+        }
       }
     }
 
@@ -57,7 +65,7 @@ class MySupply extends CGFobject {
     {
       if (this.state != SupplyStates.INACTIVE)
       {
-        this.scene.pushMatrix;
+        this.scene.pushMatrix();
 
         this.scene.translate(this.x, this.y, this.z);
 
@@ -68,7 +76,7 @@ class MySupply extends CGFobject {
         else if (this.state == SupplyStates.LANDED)
         {
           this.scene.translate(0, 0, -1);
-          this.scene.rotate(-90*Math.PI/180, 1, 0, 0)
+          this.scene.rotate(90*Math.PI/180, 1, 0, 0)
         }
 
         this.box.apply();
@@ -88,7 +96,7 @@ class MySupply extends CGFobject {
         {
           this.scene.translate(-1, 0, 0);
           this.scene.rotate(90*Math.PI/180, 0, 1, 0);
-          this.scene.rotate(-90*Math.PI/180, 1, 0, 0)
+          this.scene.rotate(90*Math.PI/180, 1, 0, 0)
         }
 
         this.box.apply();
@@ -108,7 +116,7 @@ class MySupply extends CGFobject {
         {
           this.scene.translate(1, 0, 0);
           this.scene.rotate(-90*Math.PI/180, 0, 1, 0);
-          this.scene.rotate(-90*Math.PI/180, 1, 0, 0);
+          this.scene.rotate(90*Math.PI/180, 1, 0, 0);
         }
         
         this.box.apply();
@@ -128,7 +136,7 @@ class MySupply extends CGFobject {
         {
           this.scene.translate(0, 0, 1);
           this.scene.rotate(180*Math.PI/180, 0, 1, 0);
-          this.scene.rotate(-90*Math.PI/180, 1, 0, 0);
+          this.scene.rotate(90*Math.PI/180, 1, 0, 0);
         }
 
         this.box.apply();
@@ -148,7 +156,7 @@ class MySupply extends CGFobject {
         if (this.state == SupplyStates.LANDED)
         {
           this.scene.rotate(Math.PI,0,1,0);
-          this.scene.rotate(-90*Math.PI/180, 1, 0, 0);
+          this.scene.rotate(90*Math.PI/180, 1, 0, 0);
         }
 
         this.box.apply();
@@ -169,7 +177,7 @@ class MySupply extends CGFobject {
         {
           this.scene.translate(0, 0, 2);
           this.scene.rotate(180*Math.PI/180, 0, 1, 0);
-          this.scene.rotate(-90*Math.PI/180, 1, 0, 0);
+          this.scene.rotate(90*Math.PI/180, 1, 0, 0);
         }
 
         this.box.apply();

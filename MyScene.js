@@ -38,8 +38,13 @@ class MyScene extends CGFscene {
         this.myGondola = new MyGondola(this);
         this.myHelice = new MyHelice(this);
         this.myTerrain = new MyTerrain(this);
-        this.mySupply = new MySupply(this);
-
+        this.supplies = [
+        new MySupply(this),
+        new MySupply(this),
+        new MySupply(this),
+        new MySupply(this),
+        new MySupply(this),
+        ];
 
         //------ Applied Material
         this.defaultMaterial = new CGFappearance(this);
@@ -54,8 +59,6 @@ class MyScene extends CGFscene {
         //------ Textures
         this.texture1 = new CGFtexture(this, 'images/earth.jpg');
 
-
-
         //Objects connected to MyInterface
         this.displayAxis = true;
         this.displaySphere = false;
@@ -69,6 +72,8 @@ class MyScene extends CGFscene {
         this.textures = [this.texture1];
 
         this.textureIds = { 'Earth': 0}
+
+        this.supplies_dropped = 0;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -97,7 +102,8 @@ class MyScene extends CGFscene {
     {
         this.checkKeys();
         this.myVehicle.update(t);
-        this.mySupply.update();
+        for (var i = 0; i < 5; i++)
+            this.supplies[i].update();
     }
 
     updateTexCoords() {
@@ -142,6 +148,12 @@ class MyScene extends CGFscene {
             if (this.gui.isKeyPressed("KeyR"))
             {
                 this.myVehicle.reset();
+                this.supplies_dropped = 0;
+                for (var i = 0; i < 5; i++)
+                {
+                    this.supplies[i].state = SupplyStates.INACTIVE;
+                    this.supplies[i].y = 9;
+                }
                 text += " R ";
                 keysPressed=true;
             }
@@ -154,7 +166,11 @@ class MyScene extends CGFscene {
             
             if (this.gui.isKeyPressed("KeyL")) {
                 text += " L ";
-                //this.mySupply.drop(this.myVehicle.x, this.myVehicle.z);
+                if (this.supplies_dropped < 5)
+                {
+                    this.supplies[this.supplies_dropped].drop(this.myVehicle.x, this.myVehicle.z);
+                    this.supplies_dropped++;
+                }
                 keysPressed = true;
             }
         }
@@ -202,11 +218,13 @@ class MyScene extends CGFscene {
 
         if (this.displayCilinder)
             this.myCilinder.display();
-
-        this.mySupply.display();
+        
+        for (var i = 0; i < 5; i++)
+            this.supplies[i].display();
         
         this.pushMatrix();
 
+        this.translate(0, 25, 0);
         this.scale(50,50,50);
         this.myCubeMap.display();
 
@@ -214,7 +232,6 @@ class MyScene extends CGFscene {
 
         this.pushMatrix();
 
-        this.translate(0,-25,0);
         this.myTerrain.display();
 
         this.popMatrix();
