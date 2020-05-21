@@ -113,7 +113,7 @@ class MyVehicle extends CGFobject {
         }
         this.turning = 0;
 
-        this.updateFlag(t/1000%1000);
+        this.updateFlag(t % 1000 / 1000);
     }
 
     updateFlag(t)
