@@ -75,7 +75,7 @@ class MyScene extends CGFscene {
         this.textureIds = { 'Earth': 0}
 
         this.supplies_dropped = 0;
-        this.since_last_supply = 0;
+        this.wait_for_supply = 0;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -102,12 +102,21 @@ class MyScene extends CGFscene {
     // called periodically (as per setUpdatePeriod() in init())
     update(t)
     {
+        if (this.lastUpdate == 0)
+            this.lastUpdate = t;
+
+        var elapsedTime = t - this.lastUpdate;
+
+        this.lastUpdate = t;
+
         this.checkKeys();
 
         this.myVehicle.update(t);
         
         for (var i = 0; i < 5; i++)
             this.supplies[i].update(this.lastUpdate);
+
+        this.wait_for_supply += elapsedTime; 
     }
 
     updateTexCoords() {
@@ -148,47 +157,40 @@ class MyScene extends CGFscene {
                 keysPressed=true;
             }
 
-        
-            if (this.gui.isKeyPressed("KeyR"))
-            {
-                this.myVehicle.reset();
-                this.supplies_dropped = 0;
-                for (var i = 0; i < 5; i++)
-                {
-                    this.supplies[i].reset();
-                }
-                this.myBillboard.reset();
-                text += " R ";
-                keysPressed=true;
-            }
 
             if (this.gui.isKeyPressed("KeyP")) {
                 text += " P ";
                 this.myVehicle.startAutopilot();
                 keysPressed = true;
             }
-            
-            if (this.gui.isKeyPressed("KeyL")) {
-                text += " L ";
-                if (this.supplies_dropped < 5)
-                {
-                    this.supplies[this.supplies_dropped].drop(this.myVehicle.x, this.myVehicle.z);
-                    this.supplies_dropped++;
-                }
-                this.myBillboard.update();
-                keysPressed = true;
-            }
         }
-        else {
-            
-            if (this.gui.isKeyPressed("KeyR"))
+
+        if (this.gui.isKeyPressed("KeyL"))
+        {
+            text += " L ";
+            if (this.supplies_dropped < 5 && this.wait_for_supply > 350)
             {
-                this.myBillboard.reset();
-                this.myVehicle.reset();
-                text += " R ";
-                keysPressed=true;
+                this.supplies[this.supplies_dropped].drop(this.myVehicle.x, this.myVehicle.z);
+                this.supplies_dropped++;
+                this.wait_for_supply = 0;
             }
+            this.myBillboard.update();
+            keysPressed = true;
         }
+            
+        if (this.gui.isKeyPressed("KeyR"))
+        {
+            this.myVehicle.reset();
+            this.supplies_dropped = 0;
+            for (var i = 0; i < 5; i++)
+            {
+                this.supplies[i].reset();
+            }
+            this.myBillboard.reset();
+            text += " R ";
+            keysPressed=true;
+        }
+
         if(keysPressed){
             console.log(text);
         }    
