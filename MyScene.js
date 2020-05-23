@@ -64,6 +64,8 @@ class MyScene extends CGFscene {
         this.displayAxis = true;
         this.displaySphere = false;
         this.displayCilinder = false;
+        this.displayVehicle = true;
+        this.displayBillboard = true;
         this.scaleFactor = 1;
         this.speedFactor = 1;
         this.ambientLight = 0.3;
@@ -246,18 +248,22 @@ class MyScene extends CGFscene {
 
         this.defaultMaterial.apply();
 
-        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
-
         this.pushMatrix();
         
-        this.translate(0,10,0);
-        this.myVehicle.display();
+        if(this.displayBillboard){
+            this.myBillboard.display();
+        }
 
         this.popMatrix();
 
         this.defaultMaterial.apply();
 
-        this.myBillboard.display();
+        this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+
+        this.translate(0,10,0);
+        if(this.displayVehicle){
+            this.myVehicle.display();
+        }
     
         // ---- END Primitive drawing section
     }

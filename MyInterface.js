@@ -20,6 +20,8 @@ class MyInterface extends CGFinterface {
         this.gui.add(this.scene, 'displayAxis').name('Display Axis');
         this.gui.add(this.scene, 'displaySphere').name('Display Sphere');
         this.gui.add(this.scene, 'displayCilinder').name('Display Cilinder');
+        this.gui.add(this.scene, 'displayVehicle').name('Display Vehicle');
+        this.gui.add(this.scene, 'displayBillboard').name('Display Billboard');
 
         this.gui.add(this.scene, 'speedFactor', 0.1, 3.0).name('Speed');
         this.gui.add(this.scene, 'scaleFactor', 0.5, 5.0).name('Scale');
@@ -27,7 +29,7 @@ class MyInterface extends CGFinterface {
         this.initKeys();
 
         //Dropdown for textures
-        this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
+        //this.gui.add(this.scene, 'selectedTexture', this.scene.textureIds).name('Selected Texture').onChange(this.scene.updateAppliedTexture.bind(this.scene));
         
         return true;
     }
