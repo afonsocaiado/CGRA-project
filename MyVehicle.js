@@ -34,6 +34,13 @@ class MyVehicle extends CGFobject {
 
     initBuffers()
     {
+        this.defaultMaterial = new CGFappearance(this.scene);
+        this.defaultMaterial.setAmbient(0.1, 0.1, 0.1, 1);
+        this.defaultMaterial.setDiffuse(0.9, 0.9, 0.9, 1);
+        this.defaultMaterial.setSpecular(0.1, 0.1, 0.1, 1);
+        this.defaultMaterial.setShininess(10.0);
+        this.defaultMaterial.setTextureWrap('REPEAT', 'REPEAT');
+
         this.tex = new CGFappearance(this.scene);
         this.tex.setAmbient(1.0, 1.0, 1.0, 1);
         this.tex.setDiffuse(0.0, 0.0, 0.0, 1);
@@ -41,6 +48,22 @@ class MyVehicle extends CGFobject {
         this.tex.setShininess(10.0);
         this.tex.loadTexture('images/flag.jpg');
         this.tex.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.texMain = new CGFappearance(this.scene);
+        this.texMain.setAmbient(1.0, 1.0, 1.0, 1);
+        this.texMain.setDiffuse(0.0, 0.0, 0.0, 1);
+        this.texMain.setSpecular(0.0, 0.0, 0.0, 1);
+        this.texMain.setShininess(10.0);
+        this.texMain.loadTexture('images/ball.jpg');
+        this.texMain.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
+
+        this.texRudder = new CGFappearance(this.scene);
+        this.texRudder.setAmbient(1.0, 1.0, 1.0, 1);
+        this.texRudder.setDiffuse(0.0, 0.0, 0.0, 1);
+        this.texRudder.setSpecular(0.0, 0.0, 0.0, 1);
+        this.texRudder.setShininess(10.0);
+        this.texRudder.loadTexture('images/nflSymbol.png');
+        this.texRudder.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
         this.flagShader = new CGFshader(this.scene.gl, "shaders/flag.vert", "shaders/flag.frag");
         this.flagShader.setUniformsValues({ uSampler: 1 });
@@ -143,13 +166,15 @@ class MyVehicle extends CGFobject {
 
         // CORPO PRINCIPAL
         this.scene.pushMatrix();
+        this.texMain.apply();
         this.scene.scale(2,2,2);
+        this.scene.rotate(-90*Math.PI/180, 0, 0, 1);
         this.elipse.display();
         this.scene.popMatrix();
 
-
         //GONDOLA INFERIOR
         this.scene.pushMatrix();
+        this.defaultMaterial.apply();
         this.scene.translate(0,-2.2,0);
         this.scene.scale(0.4,0.4,0.4);
         this.gondola.display();
@@ -158,6 +183,7 @@ class MyVehicle extends CGFobject {
 
         //LEME DIREITO
         this.scene.pushMatrix();
+        this.texRudder.apply();
         this.scene.translate(1,0,-3);
         this.scene.scale(1,1,1.5);
         this.scene.rotate(90*Math.PI/180,0,1,0);
@@ -193,6 +219,7 @@ class MyVehicle extends CGFobject {
 
         //FIO BAIXO
         this.scene.pushMatrix();
+        this.defaultMaterial.apply();
         this.scene.translate(0,-0.6,-4.5);
         this.scene.scale(0.3,0.3,1);
         this.scene.rotate(90*Math.PI/180, 1, 0, 0);
