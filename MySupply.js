@@ -20,6 +20,9 @@ class MySupply extends CGFobject {
     this.y = 9;
     this.z = 0;
 
+    this.startTime = 0;
+    this.elapsedTime = 0;
+
     this.state=SupplyStates.INACTIVE;
     }
 
@@ -48,17 +51,32 @@ class MySupply extends CGFobject {
       this.y = 0.5;
     }
 
-    update()
+    update(t)
     {
       if (this.state == SupplyStates.FALLING)
       {
-        this.y -= 0.4;
+        if (this.startTime == 0)
+          this.startTime = t;
+        
+        this.elapsedTime = t - this.startTime;
+
+        this.y = 9 - this.elapsedTime*0.0033;
 
         if (this.y <= 0.4)
         {
           this.land();
         }
       }
+    }
+
+    reset()
+    {
+      this.startTime = 0;
+      this.elapsedTime = 0;
+
+      this.y = 9;
+
+      this.state=SupplyStates.INACTIVE;
     }
 
     display()

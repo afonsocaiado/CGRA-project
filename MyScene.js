@@ -75,6 +75,7 @@ class MyScene extends CGFscene {
         this.textureIds = { 'Earth': 0}
 
         this.supplies_dropped = 0;
+        this.since_last_supply = 0;
     }
     initLights() {
         this.lights[0].setPosition(15, 2, 5, 1);
@@ -101,17 +102,12 @@ class MyScene extends CGFscene {
     // called periodically (as per setUpdatePeriod() in init())
     update(t)
     {
-        if (this.lastUpdate == 0)
-            this.lastUpdate = t;
-        let elapsedTime = t - this.lastUpdate;
-        this.lastUpdate = t;
-
         this.checkKeys();
 
         this.myVehicle.update(t);
         
         for (var i = 0; i < 5; i++)
-            this.supplies[i].update();
+            this.supplies[i].update(this.lastUpdate);
     }
 
     updateTexCoords() {
@@ -159,8 +155,7 @@ class MyScene extends CGFscene {
                 this.supplies_dropped = 0;
                 for (var i = 0; i < 5; i++)
                 {
-                    this.supplies[i].state = SupplyStates.INACTIVE;
-                    this.supplies[i].y = 9;
+                    this.supplies[i].reset();
                 }
                 this.myBillboard.reset();
                 text += " R ";
