@@ -44,6 +44,7 @@ class MyGondola extends CGFobject {
     {
         this.scene.pushMatrix();
 
+        // CORPO PRINCIPAL
         this.scene.pushMatrix(); 
         this.tex.apply();       
         this.scene.translate(0,0,0);
@@ -65,6 +66,7 @@ class MyGondola extends CGFobject {
         this.scene.popMatrix();
         this.scene.popMatrix();
 
+        // ELIPSE DIREITA
         this.scene.pushMatrix();
         this.defaultMaterial.apply();
         this.scene.translate(0.9,0,-3);
@@ -72,24 +74,26 @@ class MyGondola extends CGFobject {
         this.elipse.display();
         this.scene.popMatrix();
 
+        // ELIPSE ESQUERDA
         this.scene.pushMatrix();
         this.scene.translate(-0.9,0,-3);
         this.scene.scale(0.3,0.3,0.5);
         this.elipse1.display();      
         this.scene.popMatrix();
 
+        // HELICE DIREITA
         this.scene.pushMatrix(); 
         this.scene.translate(0.9,0,-4);    
         this.helice1.display();        
         this.scene.popMatrix();
 
+        // HELICE ESQUERDA
         this.scene.pushMatrix();
         this.scene.translate(-0.9,0,-4);        
         this.helice2.display();        
         this.scene.popMatrix();
     }
     
-
     reset()
     {
         this.helice1.reset();

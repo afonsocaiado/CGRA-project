@@ -32,17 +32,20 @@ class MyHelice extends CGFobject {
 
         this.scene.scale(0.1, 0.2, 0.1);
 
+        // CORPO PRINCIPAL
         this.scene.pushMatrix();
         this.scene.scale(0.7,6,0.7);
         this.cilinder.display();
         this.scene.popMatrix();
 
+        // ESFERA 1
         this.scene.pushMatrix();
         this.scene.translate(0,-3,0);
         this.scene.scale(0.7,0.7,0.7);
         this.sphere.display();
         this.scene.popMatrix();
         
+        // ESFERA 2
         this.scene.pushMatrix();
         this.scene.translate(0,3,0);
         this.scene.scale(0.7,0.7,0.7);

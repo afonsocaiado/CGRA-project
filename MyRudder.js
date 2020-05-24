@@ -86,9 +86,7 @@ class MyRudder extends CGFobject {
 	{
 		this.scene.pushMatrix();
 
-	
 		this.scene.rotate(this.ang*(Math.PI/180), 0, 1, 0);
-		
 		
 		super.display();
 

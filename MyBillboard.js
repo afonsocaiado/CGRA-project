@@ -43,30 +43,35 @@ class MyBillboard extends CGFobject {
 
         this.scene.translate(10, 9, -17);
 
+        // TRAVE DIREITA
         this.scene.pushMatrix(); 
         this.scene.translate(1.9, -2, 0);
         this.scene.scale(1, 1.4, 1);      
         this.trave.display();
         this.scene.popMatrix();
 
+        // TRAVE ESQUERDA
         this.scene.pushMatrix(); 
         this.scene.translate(-1.9, -2, 0);
         this.scene.scale(1, 1.4, 1);      
         this.trave1.display();
         this.scene.popMatrix();
 
+        // BASE FRONTAL
         this.scene.pushMatrix();  
         this.top.apply();
         this.scene.scale(4, 2, 2);      
         this.base.display();
         this.scene.popMatrix();
 
+        // BASE TRASEIRA
         this.scene.pushMatrix();  
         this.scene.rotate(Math.PI, 0, 1, 0);
         this.scene.scale(4, 2, 2);      
         this.base.display();
         this.scene.popMatrix(); 
 
+        // BARRA PROGRESSIVA
         this.scene.pushMatrix();  
         this.scene.setActiveShader(this.barShader);
         this.scene.translate(0, -0.5, 0.05);

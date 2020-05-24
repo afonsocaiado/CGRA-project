@@ -95,12 +95,14 @@ class MyScene extends CGFscene {
         this.defaultMaterial.setTexture(this.textures[this.selectedTexture]);
     }
 
+    // Function that resets the current applied appearance
     setDefaultAppearance() {
         this.setAmbient(0.2, 0.4, 0.8, 1.0);
         this.setDiffuse(0.2, 0.4, 0.8, 1.0);
         this.setSpecular(0.2, 0.4, 0.8, 1.0);
         this.setShininess(10.0);
     }
+
     // called periodically (as per setUpdatePeriod() in init())
     update(t)
     {
@@ -129,8 +131,8 @@ class MyScene extends CGFscene {
     {
         var text = "Keys pressed: ";
         var keysPressed = false;
-        if(this.myVehicle.autopilot == false)
-        {
+        if(this.myVehicle.autopilot == false)     // When autopilot is not activated, every possible key is verified
+        {                                         // Otherwise, only 'L' and 'R' will be recognized
             if (this.gui.isKeyPressed("KeyW"))
             {
                 this.myVehicle.accelerate(0.05*this.speedFactor);
@@ -220,8 +222,6 @@ class MyScene extends CGFscene {
 
         // ---- BEGIN Primitive drawing section
 
-        //this.gl.texParameteri(this.gl.TEXTURE_2D, this.gl.TEXTURE_MAG_FILTER, this.gl.NEAREST);
-
         //This sphere does not have defined texture coordinates
         if (this.displaySphere)
             this.mySphere.display();
@@ -229,38 +229,38 @@ class MyScene extends CGFscene {
         if (this.displayCilinder)
             this.myCilinder.display();
         
+        // Draw Cube Map
         this.pushMatrix();
-
         this.translate(0, 25, 0);
         this.scale(50,50,50);
         this.myCubeMap.display();
-
         this.popMatrix();
 
+        // Draw MyTerrain
         this.pushMatrix();
-
         this.myTerrain.display();
-
         this.popMatrix();
 
         this.defaultMaterial.apply();
 
+        // Draw Billboard
         this.pushMatrix();
-        
         if(this.displayBillboard){
             this.myBillboard.display();
         }
-
         this.popMatrix();
 
         this.defaultMaterial.apply();
 
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
 
+        // Draw Supplies until limit of 5
         for (var i = 0; i < 5; i++)
             this.supplies[i].display();
 
+        // Draw Vehicle and translate it to desired position
         this.translate(0,10,0);
+
         if(this.displayVehicle){
             this.myVehicle.display();
         }
