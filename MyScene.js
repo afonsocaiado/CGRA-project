@@ -176,7 +176,7 @@ class MyScene extends CGFscene {
                 this.supplies_dropped++;
                 this.wait_for_supply = 0;
             }
-            this.myBillboard.update();
+            this.myBillboard.update(this.supplies_dropped);
             keysPressed = true;
         }
             

@@ -17,7 +17,7 @@ class MySupply extends CGFobject {
     this.initMaterials();
 
     this.x = 0;
-    this.y = 9;
+    this.y = 7.5;
     this.z = 0;
 
     this.startTime = 0;
@@ -60,7 +60,7 @@ class MySupply extends CGFobject {
         
         this.elapsedTime = t - this.startTime;
 
-        this.y = 9 - this.elapsedTime*0.0033;
+        this.y = 7.5 - this.elapsedTime*0.0033;
 
         if (this.y <= 0.4)
         {
@@ -74,7 +74,7 @@ class MySupply extends CGFobject {
       this.startTime = 0;
       this.elapsedTime = 0;
 
-      this.y = 9;
+      this.y = 7.5;
 
       this.state=SupplyStates.INACTIVE;
     }

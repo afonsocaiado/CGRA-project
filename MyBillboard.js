@@ -25,9 +25,9 @@ class MyBillboard extends CGFobject {
         this.barShader.setUniformsValues({ nDropped : this.nDropped });
     }
 
-    update()
+    update(val)
     {
-        this.nDropped++;
+        this.nDropped = val;
         this.barShader.setUniformsValues({ nDropped : this.nDropped});
     }
 
