@@ -172,7 +172,7 @@ class MyScene extends CGFscene {
         if (this.gui.isKeyPressed("KeyL"))
         {
             text += " L ";
-            if (this.supplies_dropped < 5 && this.wait_for_supply > 350)
+            if (this.supplies_dropped < 5 && this.wait_for_supply > 350 && this.myVehicle.x < 9 && this.myVehicle.x > -9 && this.myVehicle.z < 9 && this.myVehicle.z > -9)
             {
                 this.supplies[this.supplies_dropped].drop(this.myVehicle.x, this.myVehicle.z);
                 this.supplies_dropped++;
