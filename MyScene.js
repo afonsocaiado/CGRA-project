@@ -229,9 +229,6 @@ class MyScene extends CGFscene {
         if (this.displayCilinder)
             this.myCilinder.display();
         
-        for (var i = 0; i < 5; i++)
-            this.supplies[i].display();
-        
         this.pushMatrix();
 
         this.translate(0, 25, 0);
@@ -259,6 +256,9 @@ class MyScene extends CGFscene {
         this.defaultMaterial.apply();
 
         this.scale(this.scaleFactor, this.scaleFactor, this.scaleFactor);
+
+        for (var i = 0; i < 5; i++)
+            this.supplies[i].display();
 
         this.translate(0,10,0);
         if(this.displayVehicle){
